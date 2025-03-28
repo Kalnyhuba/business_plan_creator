@@ -1,0 +1,80 @@
+create_business_concept:
+  description: >
+    Create a business concept for the idea provided by the user.
+    Provide the executive summary and the business description, describe what the business will sell,
+    to whom and why the business will hold a competitive advantage.
+  expected_output: >
+    A business concept for the idea, including the executive summary and the business description.
+    The executive summary should contain the following:
+    State the company's needs and objectives. Write the business concept, what the company offers, to whom and why the business will hold a competitive advantage.
+    Write shortly about the financial highlights of the business and the funding requirements. Write shortly about the current business status such as the
+    legal structure, size and ownership.
+    Write maximum 800 characters.
+    The business description should contain the following:
+    It should cover the company overview such as name, location, legal structure and ownership.
+    It should cover the mission and the vision of the business.
+    It should cover the products and services offered.
+    Write maximum 1000 characters.
+  agent: business_designer
+
+create_financial_plan:
+  description: >
+    Create a financial plan for the business concept that is defined by the business designer agent.
+    The financial plan section provides a clear picture of the business' financial viability and future growth potential.
+    It details the business' financial health and funding needs including: financial projections (estimates of sales, profits, and cash flow),
+    funding requirements (needed capital and its usage) and break-even analysis (when the business expects to become profitable).
+  expected_output: >
+    Write about the financial projections, how the business will generate sales and profits,
+    how will the business fund its operations and how will the business become profitable. If no other information is provided,
+    assume that the business will be run by the owner and their partner and that they will not take a salary. They have a starting capital of 100.000 dollars.
+    Assume that the business will need additional funding from a financial institution.
+    Do not write about the business concept, only about the financial plan, defined for you.
+    Write maximum 1000 characters.
+  agent: financial_expert
+  context:
+    - [create_business_concept]
+
+create_marketing_plan:
+  description: >
+    Create a marketing plan for the business concept that is defined by the business designer agent.
+    The marketing & sales section outlines how the business attracts and retains customers.
+    It includes: marketing strategy (branding, advertising, and promotions), distribution channels (how products/services reach customers),
+    pricing strategy (competitive pricing and value proposition), and customer retention (loyalty programs and follow-up strategies).
+  expected_output: >
+    Write about how the business will market its products and services, what kind of promotions it will use,
+    what will be the main distribution channels and how will the business retain customers.
+    Write about the pricing strategy and the value proposition of the business.
+    Do not write about the business concept, or the financial plan, only about the marketing plan, defined for you.
+    Write maximum 1000 characters.
+  agent: marketing_expert
+  context:
+    - [create_business_concept, create_financial_plan]
+
+create_operating_plan:
+  description: >
+    Create an operating plan for the business concept that is defined by the business designer agent.
+    The operations and management section ensures that the business has a clear structure for operations and effective leadership,
+    including the business's daily activities and leadership structure. It consists of: the operational plan
+    (key processes, locations, and resources needed for daily operations), management team (key personnel, their roles, and experience), staffing & roles
+    (staffing needs and responsibilities).
+  expected_output: >
+    Write about how the business will organise daily operations, as well as how does the supply chain look like.
+    Write about the key processes, locations, and resources needed for daily operations.
+    Write about the management team, their roles, and experience. If no other information is provided,
+    assume that the business will be run by the owner and their partner.
+    Do not write about the business concept, or the financial plan, or the marketing plan, only about the operating plan, defined for you.
+    Write maximum 1000 characters.
+  agent: operations_specialist
+  context:
+    - [create_business_concept, create_financial_plan, create_marketing_plan]
+
+create_investor_assessment:
+  description: >
+    Analyze the business concept and provide feedback on the viability in the real world.
+  expected_output: >
+    Add your feedback to the end of the business plan, but don't change the content of the sections. Consider all aspects of the business plan,
+    and make comments to each section.
+    Write maximum 300 characters.
+  agent: stakeholder
+  context:
+    - [create_business_concept, create_financial_plan, create_marketing_plan, create_operating_plan]
