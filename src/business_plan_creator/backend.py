@@ -5,8 +5,11 @@ import yaml
 from .crews.businessplan_crew.businessplan_crew import BusinessPlanCrew
 from typing import List, Dict
 import os
+import google.generativeai as genai
 
 app = FastAPI()
+
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
 class BusinessPlanRequest(BaseModel):
     business_concept: str
@@ -22,10 +25,13 @@ class BusinessPlanResponse(BaseModel):
 @app.post("/generate-business-plan", response_model=BusinessPlanResponse)
 async def generate_business_plan(request: BusinessPlanRequest):
     try:
-        # Initialize the LLM
+        # Initialize Google Gemini
+        #model = genai.GenerativeModel('gemini-2.0-flash')
+        
+        # Initialize the LLM with Gemini
         llm = LLM(
-            model="ollama/deepseek-r1",
-            base_url="http://localhost:11434"
+            model="gemini/gemini-2.0-flash",
+            temperature=0.7
         )
 
         # Get the current directory

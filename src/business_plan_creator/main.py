@@ -5,6 +5,10 @@ from pydantic import BaseModel
 from crewai import LLM
 from crewai.flow.flow import Flow, listen, start
 from business_plan_creator.crews.businessplan_crew.businessplan_crew import BusinessPlanCrew
+import google.generativeai as genai
+import os
+
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
 class BusinessPlanState(BaseModel):
     business_concept: str = ""
@@ -22,13 +26,16 @@ class BusinessPlanFlow(Flow[BusinessPlanState]):
     
     @listen(get_user_input)
     def create_business_plan(self, state: BusinessPlanState):
-        """Create the business plan using the crew with DeepSeek LLM"""
+        """Create the business plan using the crew with Gemini LLM"""
         print("Creating business plan...")
 
-        # Initialize the LLM
+        # Initialize Google Gemini
+        #model = genai.GenerativeModel('gemini-2.0-flash')
+        
+        # Initialize the LLM with Gemini
         llm = LLM(
-            model="ollama/deepseek-r1",
-            base_url="http://localhost:11434"
+            model="gemini/gemini-2.0-flash",
+            temperature=0.7
         )
 
         # Load configurations

@@ -1,80 +1,137 @@
 create_business_concept:
   description: >
-    Create a business concept for the idea provided by the user.
-    Provide the executive summary and the business description, describe what the business will sell,
-    to whom and why the business will hold a competitive advantage.
+    Write a well-defined and professional business description part of a business plan for the business idea provided by the user.
+    The business description should provide a detailed look about the company, its purpose, and its market position.
+    It should cover: the company overview (name, location, legal structure, and ownership), mission & vision (the business' core purpose and long-term goals),
+    products & services (what the company offers and how it meets customer needs) and industry and market (like key trends, target audience, and competitive positioning).
+    It should also state the core objectives of the business, the unique value proposition and long-term growth strategies.
+    Create it step by step, ensuring not to miss anything.
   expected_output: >
-    A business concept for the idea, including the executive summary and the business description.
-    The executive summary should contain the following:
-    State the company's needs and objectives. Write the business concept, what the company offers, to whom and why the business will hold a competitive advantage.
-    Write shortly about the financial highlights of the business and the funding requirements. Write shortly about the current business status such as the
-    legal structure, size and ownership.
-    Write maximum 800 characters.
-    The business description should contain the following:
-    It should cover the company overview such as name, location, legal structure and ownership.
-    It should cover the mission and the vision of the business.
-    It should cover the products and services offered.
-    Write maximum 1000 characters.
+    A detailed markdown report, which consists of at least 350 words and consists of the following things in this order:
+    - Brief introduction of the business
+    - Company overview
+    - Mission and vision
+    - Objectives, value proposition and long-term growth strategy
+    - Products and services
+    - Industry and market
+    These are the headings that you need to follow, write about everything in your description to the belonging heading.
+    Include everything in the report that is in your description, but do not go into much detail about them, because other specialzed agents will write more in detail about them.
   agent: business_designer
 
-create_financial_plan:
+create_market_analysis:
   description: >
-    Create a financial plan for the business concept that is defined by the business designer agent.
-    The financial plan section provides a clear picture of the business' financial viability and future growth potential.
-    It details the business' financial health and funding needs including: financial projections (estimates of sales, profits, and cash flow),
-    funding requirements (needed capital and its usage) and break-even analysis (when the business expects to become profitable).
+    Conduct an in-depth market analysis based on the business idea from the user and the previously generated business overview.
+    Provide current market trends relevant to this business in that industry. Provide target market segmentation, with demographics such as primary customer segment and its characteristics,
+    like age range, location, income level, interests.
+    Give a possible market size estimation. Write about the barriers and challenges when entering this market.
+    Create it step by step, ensuring not to miss anything.
   expected_output: >
-    Write about the financial projections, how the business will generate sales and profits,
-    how will the business fund its operations and how will the business become profitable. If no other information is provided,
-    assume that the business will be run by the owner and their partner and that they will not take a salary. They have a starting capital of 100.000 dollars.
-    Assume that the business will need additional funding from a financial institution.
-    Do not write about the business concept, only about the financial plan, defined for you.
-    Write maximum 1000 characters.
-  agent: financial_expert
+    A detailed markdown report, which consists of at least 500 words and consists of the following things in this order:
+    - Industry and market trends
+    - Target market segmentation
+    - Possible market size estimation
+    - Challenges and risks when entering the market
+    These are the headings that you need to follow, write about everything in your description to the belonging heading. Do not write about the same things that the previous agents has already generated.
+  agent: market_analyst
   context:
     - [create_business_concept]
 
+create_competition_analysis:
+  description: >
+    Conduct a competitive analysis based on the market research and business overview.
+    Write about what growth potential the business might have in the industry among the competition.
+    Identify direct and indirect competitors and identify their strengths and weaknesses, and what kind of strategies might they utilise.
+    State the competitive advantage the business might offer in the market, such as unique pricing model, customer experience or special offerings.
+    Create it step by step, ensuring not to miss anything.
+  expected_output: >
+    A detailed markdown report, which consists of at least 400 words and consists of the following things in this order:
+    - Growth potential in the industry
+    - Competitor analysis
+    - Competitive advantage of the business
+    These are the headings that you need to follow, write about everything in your description to the belonging heading. Do not write about the same things that the previous agents has already generated.
+  agent: competition_analyst
+  context:
+    - [create_business_concept, create_market_analysis]
+
+create_product_design:
+  description: >
+    Describe what the business offers and how it meets customer needs.
+    Design the core product or service offering by defining key features and functionalities. Write about how the product or service ensures it meets customer demands.
+    If there are any technical implementations applicable, write about them, what do they require financially, technologically and provide possible solutions.
+    Write about how the product or service stands out, what makes it unique and how the business is planning to develop it even further in the future.
+    Create it step by step, ensuring not to miss anything.
+  expected_output: >
+    A detailed markdown report, which consists of at least 400 words and consists of the following things in this order:
+    - Product/Service design
+    - Key features and functionalities
+    - Possible technological considerations
+    - Differentiation and innovation strategy
+    These are the headings that you need to follow, write about everything in your description to the belonging heading. Do not write about the same things that the previous agents has already generated.
+  agent: product_designer
+  context:
+    - [create_business_concept, create_market_analysis, create_competition_analysis]
+
 create_marketing_plan:
   description: >
-    Create a marketing plan for the business concept that is defined by the business designer agent.
-    The marketing & sales section outlines how the business attracts and retains customers.
-    It includes: marketing strategy (branding, advertising, and promotions), distribution channels (how products/services reach customers),
-    pricing strategy (competitive pricing and value proposition), and customer retention (loyalty programs and follow-up strategies).
+    Create a comprehensive marketing and customer acquisition strategy, you can use the information generated by the previous agents.
+    Write about brand positioning and how the business will advertise and promote the product or service they offer.
+    Write about distribution channels such as social media, SEO etc. Write about a pricing strategy, which details how the business will achieve competitive pricing.
+    Write about retention and loyalty-building strategies.
+    Create it step by step, ensuring not to miss anything.
   expected_output: >
-    Write about how the business will market its products and services, what kind of promotions it will use,
-    what will be the main distribution channels and how will the business retain customers.
-    Write about the pricing strategy and the value proposition of the business.
-    Do not write about the business concept, or the financial plan, only about the marketing plan, defined for you.
-    Write maximum 1000 characters.
+    A detailed markdown report, which consists of at least 500 words and consists of the following things in this order:
+    - Advertisement, promotion and branding strategy
+    - Distribution channels
+    - Pricing strategy
+    - Customer retention and loyalty-building strategy
+    These are the headings that you need to follow, write about everything in your description to the belonging heading. Do not write about the same things that the previous agents has already generated.
   agent: marketing_expert
   context:
-    - [create_business_concept, create_financial_plan]
+    - [create_business_concept, create_market_analysis, create_competition_analysis, create_product_design]
 
 create_operating_plan:
   description: >
-    Create an operating plan for the business concept that is defined by the business designer agent.
-    The operations and management section ensures that the business has a clear structure for operations and effective leadership,
-    including the business's daily activities and leadership structure. It consists of: the operational plan
-    (key processes, locations, and resources needed for daily operations), management team (key personnel, their roles, and experience), staffing & roles
-    (staffing needs and responsibilities).
+    Define operational workflows and supply chain logistics for efficient execution of the business model. Write about the daily activities of the business and the leadership structure.
+    Write about how to streamline processes for efficiency. Detail what are the key processes and resources needed for daily operation.
+    Write about the suppliers, the supply chain, logistics and distribution if applicable.
+    Write about the staff and their responsibilities.
+    Create it step by step, ensuring not to miss anything.
   expected_output: >
-    Write about how the business will organise daily operations, as well as how does the supply chain look like.
-    Write about the key processes, locations, and resources needed for daily operations.
-    Write about the management team, their roles, and experience. If no other information is provided,
-    assume that the business will be run by the owner and their partner.
-    Do not write about the business concept, or the financial plan, or the marketing plan, only about the operating plan, defined for you.
-    Write maximum 1000 characters.
+    A detailed markdown report, which consists of at least 500 words and consists of the following things in this order:
+    - Daily activities, key processes, resources
+    - Suppliers, supply chain, logistics
+    - Staff and their responsibilities
+    These are the headings that you need to follow, write about everything in your description to the belonging heading. Do not write about the same things that the previous agents has already generated.
   agent: operations_specialist
   context:
-    - [create_business_concept, create_financial_plan, create_marketing_plan]
+    - [create_business_concept, create_market_analysis, create_competition_analysis, create_product_design, create_marketing_plan]
+
+create_financial_plan:
+  description: >
+    Develop a detailed financial plan based, you can use the information generated by the previous agents.
+    Write about revenue projections, how the business will generate sales, profits and write about cost structure.
+    Write about funding requirements and its usage. Make a remark to the capital structure of the business.
+    Write the break-even analysis and profitability forecast, detailing when the business expects to become profitable.
+    Write about the involved risks in establishing the business, and how to mitigate them.
+    Create it step by step, ensuring not to miss anything.
+  expected_output: >
+    A detailed markdown report, which consists of at least 500 words and consists of the following things in this order:
+    - Revenue projections, sales, profits, cost structure
+    - Funding requirements, capital structure
+    - Break-even analysis
+    - Financial risks, mitigation 
+    These are the headings that you need to follow, write about everything in your description to the belonging heading. Do not write about the same things that the previous agents has already generated, but use their text as information, when needed.
+  agent: financial_expert
+  context:
+    - [create_business_concept, create_market_analysis, create_competition_analysis, create_product_design, create_marketing_plan, create_operating_plan]
 
 create_investor_assessment:
   description: >
-    Analyze the business concept and provide feedback on the viability in the real world.
+    Critically evaluate the entire business plan from an investor's perspective. Provide key strengths and weaknesses.
+    Provide actionable feedback for improvement.
   expected_output: >
-    Add your feedback to the end of the business plan, but don't change the content of the sections. Consider all aspects of the business plan,
-    and make comments to each section.
-    Write maximum 300 characters.
+    A detailed markdown report, which consists of at least 250 words and provides the feedback to each section of the plan without repeating the sections themselves,
+    just mentioning their names and providing the feedback for improvement.
   agent: stakeholder
   context:
-    - [create_business_concept, create_financial_plan, create_marketing_plan, create_operating_plan]
+    - [create_business_concept, create_market_analysis, create_competition_analysis, create_product_design, create_marketing_plan, create_operating_plan, create_financial_plan]
