@@ -1,137 +1,241 @@
 create_business_concept:
   description: >
-    Write a well-defined and professional business description part of a business plan for the business idea provided by the user.
-    The business description should provide a detailed look about the company, its purpose, and its market position.
-    It should cover: the company overview (name, location, legal structure, and ownership), mission & vision (the business' core purpose and long-term goals),
-    products & services (what the company offers and how it meets customer needs) and industry and market (like key trends, target audience, and competitive positioning).
-    It should also state the core objectives of the business, the unique value proposition and long-term growth strategies.
+    Write a well-defined and professional business description part of a business plan.
+    The business description should provide a detailed look about the company, its purpose, and consider every information that has been provided by the user.
+    If you have the following present available for you, include this in the description. This is the data which is scraped from the website of the company by another agent, if present. If it is not present, then skip this part and continue with the rest of your task:
+    {scraped_data if scraped_data else ""}
+    If there is no scraped data available consider the following information provided by the user from a questionnaire:
+    The user provides the following information about the company:
+    - Business Name: {business_name}
+    - Start Year: {start_year}
+    - Business Reason: {business_reason}
+    - Mission & Vision: {mission_vision}
+    - Legal Structure: {legal_structure}
+    - Financial Funding: {financial_funding}
+    - Business Sector: {business_sector}
+    - Product or services offered by the company: {product_service_description}
+    
+    Your report should cover: the company overview (name, the starting year, legal structure, and financing), mission & vision (the business' core purpose and long-term goals),
+    products & services (what the company offers and how it meets customer needs) and the business sector where the company operates in and a description about it.
+    Include also why the business was established from the information provided by the user.
+    Since it is a company overview, do not go into much detail about the aspects of the business, because other specialzed agents will write more in detail about them.
+    However, consider all information passed to you by the user in the variables, do not miss anything and do not make stuff up.
     Create it step by step, ensuring not to miss anything.
   expected_output: >
-    A detailed markdown report, which consists of at least 350 words and consists of the following things in this order:
-    - Brief introduction of the business
-    - Company overview
+    A detailed markdown report, which consists of at least 300 words and consists of the following things in this order:
+    - Brief introduction of the business (name, starting year etc.)
+    - Company overview (legal structure, financial funding etc.)
     - Mission and vision
-    - Objectives, value proposition and long-term growth strategy
-    - Products and services
-    - Industry and market
-    These are the headings that you need to follow, write about everything in your description to the belonging heading.
+    - Reason for establishing the company
+    - Products and services offered
+    - Industry and market (business sector and its characteristics)
+    These are the headings that you need to follow, write about everything in your report to the belonging heading.
     Include everything in the report that is in your description, but do not go into much detail about them, because other specialzed agents will write more in detail about them.
   agent: business_designer
 
-create_market_analysis:
+create_product_design:
   description: >
-    Conduct an in-depth market analysis based on the business idea from the user and the previously generated business overview.
-    Provide current market trends relevant to this business in that industry. Provide target market segmentation, with demographics such as primary customer segment and its characteristics,
-    like age range, location, income level, interests.
-    Give a possible market size estimation. Write about the barriers and challenges when entering this market.
+    Describe what the company offers and how it proposes value to the customers.
+    Consider the following information provided by the user:
+    {product_service_desciption}
+    {product_centralisation}
+    {product_range}
+    {characteristics}
+    {end_consumer_characteristics}
+    {end_consumer_characteristics_2}
+    Customer Segment Value Propositions:
+    {value_propositions}
+    Based on the information provided by the user in the variables, create a detailed description about the product or service that the company offers.
+    Write about the key features and functionalities of the product or service.
+    Write briefly about the end consumers of the product or service based on the information provided by the user in the variables.
+    Write about the value proposition of the product or service to the customers.
+    Consider all information passed to you by the user in the variables, do not miss anything and do not make stuff up.
     Create it step by step, ensuring not to miss anything.
   expected_output: >
-    A detailed markdown report, which consists of at least 500 words and consists of the following things in this order:
-    - Industry and market trends
-    - Target market segmentation
-    - Possible market size estimation
-    - Challenges and risks when entering the market
-    These are the headings that you need to follow, write about everything in your description to the belonging heading. Do not write about the same things that the previous agents has already generated.
-  agent: market_analyst
+    A detailed markdown report, which consists of at least 400 words and consists of the following things in this order:
+    - Product/Service description
+    - Key features and functionalities
+    - End consumer description
+    - Value propositions
+    These are the headings that you need to follow, write about everything in your description to the belonging heading. Do not write about the same things that the previous agents has already generated, but consider their text as information, when needed or context.
+  agent: product_designer
   context:
     - [create_business_concept]
 
-create_competition_analysis:
+create_market_analysis:
   description: >
-    Conduct a competitive analysis based on the market research and business overview.
-    Write about what growth potential the business might have in the industry among the competition.
-    Identify direct and indirect competitors and identify their strengths and weaknesses, and what kind of strategies might they utilise.
-    State the competitive advantage the business might offer in the market, such as unique pricing model, customer experience or special offerings.
+    Conduct an in-depth market analysis based on the information provided by the user in the questionnaire.
+    Consider the following information provided by the user:
+    {business_sector}
+    {sector_specific_type}
+    {target_markets}
+    {segment_name}
+    {segment_demographics}
+    {segment_characteristics}
+    Based on the information provided by the user in the variables, create a detailed market analysis.
+    Write about what sector the business operates in and what type of sub-sector it is.
+    Write about the primary target markets of the business (which countries the business is targeting).
+    Write about the market potential, the competition, the barriers and challenges when entering the market.
+    Write about the target market segmentation, with demographics. Write about all of the customer segments that are given by the user in the variables.
+    If there are multiple customer segments, write about each of them separately.
+    Include all of the information about the customer segment.
+    Consider all information passed to you by the user in the variables, do not miss anything and do not make stuff up.
     Create it step by step, ensuring not to miss anything.
   expected_output: >
-    A detailed markdown report, which consists of at least 400 words and consists of the following things in this order:
-    - Growth potential in the industry
-    - Competitor analysis
-    - Competitive advantage of the business
-    These are the headings that you need to follow, write about everything in your description to the belonging heading. Do not write about the same things that the previous agents has already generated.
-  agent: competition_analyst
+    A detailed markdown report, which consists of at least 500 words and consists of the following things in this order:
+    - Business sector and sub-sector
+    - Target markets/countries
+    - Information about the customer segment
+    These are the headings that you need to follow, write about everything in your description to the belonging heading. Do not write about the same things that the previous agents has already generated, but use their text as information, when needed or context.
+  agent: market_analyst
   context:
-    - [create_business_concept, create_market_analysis]
-
-create_product_design:
-  description: >
-    Describe what the business offers and how it meets customer needs.
-    Design the core product or service offering by defining key features and functionalities. Write about how the product or service ensures it meets customer demands.
-    If there are any technical implementations applicable, write about them, what do they require financially, technologically and provide possible solutions.
-    Write about how the product or service stands out, what makes it unique and how the business is planning to develop it even further in the future.
-    Create it step by step, ensuring not to miss anything.
-  expected_output: >
-    A detailed markdown report, which consists of at least 400 words and consists of the following things in this order:
-    - Product/Service design
-    - Key features and functionalities
-    - Possible technological considerations
-    - Differentiation and innovation strategy
-    These are the headings that you need to follow, write about everything in your description to the belonging heading. Do not write about the same things that the previous agents has already generated.
-  agent: product_designer
-  context:
-    - [create_business_concept, create_market_analysis, create_competition_analysis]
+    - [create_business_concept, create_product_design]
 
 create_marketing_plan:
   description: >
-    Create a comprehensive marketing and customer acquisition strategy, you can use the information generated by the previous agents.
-    Write about brand positioning and how the business will advertise and promote the product or service they offer.
-    Write about distribution channels such as social media, SEO etc. Write about a pricing strategy, which details how the business will achieve competitive pricing.
-    Write about retention and loyalty-building strategies.
+    Create a comprehensive marketing and sales strategy, you can use the information generated by the previous agents as context.
+    Consider the following information provided by the user:
+    The following variables should be considered the most relevant customer segment, write about them separately:
+    {segment_name}
+    {segment_demographics}
+    {segment_characteristics}
+    {customer_count}
+    {problems_faced}
+    {biggest_competitors}
+    {competition_intensity}
+    {price_comparison}
+    {market_type}
+    {competitive_parameters}
+    {value_propositions}
+    {direct_income}
+    {primary_revenue}
+    {one_time_payments}
+    {ongoing_payments}
+    {payment_characteristics}
+    {package_price}
+    {price_negotiation}
+    {fixed_prices}
+    {dynamic_prices}
+    {distribution_channels}
+    {purchasing_power}
+    {product_related_characteristics}
+    {self_service_availability}
+    {online_communities_presence}
+    {development_process_customer_involvement}
+    {after_sale_purchases}
+    {personal_assistance_offered}
+    {similar_products_switch}
+    {general_customer_relation}
+    Write about the distribution channels and advertising strategy.
+    Write about the revenue stream details.
+    Write about the customer relation details.
+    Write about the sales strategy.
+    Consider all information passed to you by the user in the variables, do not miss anything and do not make stuff up.
     Create it step by step, ensuring not to miss anything.
   expected_output: >
     A detailed markdown report, which consists of at least 500 words and consists of the following things in this order:
-    - Advertisement, promotion and branding strategy
-    - Distribution channels
-    - Pricing strategy
-    - Customer retention and loyalty-building strategy
-    These are the headings that you need to follow, write about everything in your description to the belonging heading. Do not write about the same things that the previous agents has already generated.
+    - Distribution channels and advertising strategy
+    - Revenue stream details
+    - Customer relation details
+    - Sales strategy
+    These are the headings that you need to follow, write about everything in your description to the belonging heading. Do not write about the same things that the previous agents has already generated, but use their text as information, when needed or context.
   agent: marketing_expert
   context:
-    - [create_business_concept, create_market_analysis, create_competition_analysis, create_product_design]
+    - [create_business_concept, create_market_analysis, create_product_design]
 
 create_operating_plan:
   description: >
-    Define operational workflows and supply chain logistics for efficient execution of the business model. Write about the daily activities of the business and the leadership structure.
-    Write about how to streamline processes for efficiency. Detail what are the key processes and resources needed for daily operation.
-    Write about the suppliers, the supply chain, logistics and distribution if applicable.
-    Write about the staff and their responsibilities.
+    Create a detailed operating plan, you can use the information generated by the previous agents as context.
+    Consider the following information provided by the user:
+    Company Activities and Performance:
+    - Company activities evaluation: {key_resources.company_activities}
+    - Important activities: {key_resources.important_activities}
+    - Activity division: {key_resources.activity_division}
+    - Activity performance: {key_resources.activity_performance}
+    Strategic Partners:
+    - Partners importance: {strategic_partners.partners_importance}
+    - Company statements: {strategic_partners.company_statements}
+    - Important partners: {strategic_partners.important_partners}
+    - Partnership benefits: {strategic_partners.partnership_benefits}
+    {% if strategic_partners.other_benefit %}
+    - Other benefit: {strategic_partners.other_benefit}
+    {% endif %}
+    {% if strategic_partners.outsourced_activities %}
+    - Outsourced activities: {strategic_partners.outsourced_activities}
+    {% endif %}
+    {% if strategic_partners.other_outsourced_activity %}
+    - Other outsourced activity: {strategic_partners.other_outsourced_activity}
+    {% endif %}
+    {% if strategic_partners.outsourced_for_brand %}
+    - Outsourced for brand: {strategic_partners.outsourced_for_brand}
+    {% endif %}
+    Digitalization:
+    - Technology changes intensity: {digitalization.tech_changes_intensity}
+    - Used technologies: {digitalization.used_technologies}
+    {% if digitalization.other_technology %}
+    - Other technology: {digitalization.other_technology}
+    {% endif %}
+    {% if digitalization.technology_usage %}
+    - Technology usage: {digitalization.technology_usage}
+    {% endif %}
+    Green Transformation:
+    - Green transformation status: {green_transformation.green_transformation}
+    - Green transition challenges: {green_transformation.green_transition_challenges}
+    - Green transition motivations: {green_transformation.green_transition_motivations}
+    {% if green_transformation.recycling_materials %}
+    - Recycling materials: {green_transformation.recycling_materials}
+    {% endif %}
+    Team Information:
+    {% for member in team_members %}
+    Team Member {{loop.index}}:
+    - Name: {member.name}
+    - Position: {member.position}
+    - Competencies: {member.competencies}
+    - Experience: {member.experience}
+    {% endfor %}
+    {lacking_skills}
+    {skill_plans}
+    Consider all information passed to you by the user in the variables, do not miss anything and do not make stuff up.
     Create it step by step, ensuring not to miss anything.
   expected_output: >
     A detailed markdown report, which consists of at least 500 words and consists of the following things in this order:
-    - Daily activities, key processes, resources
-    - Suppliers, supply chain, logistics
-    - Staff and their responsibilities
-    These are the headings that you need to follow, write about everything in your description to the belonging heading. Do not write about the same things that the previous agents has already generated.
+    - The company activities and performance
+    - The strategic partners and outsourcing activities
+    - The digitalization and green transformation
+    - The team members and their responsibilities
+    - The lacking skills and the skill plans
+    These are the headings that you need to follow, write about everything in your description to the belonging heading. Do not write about the same things that the previous agents has already generated, but use their text as information, when needed or context.
   agent: operations_specialist
   context:
-    - [create_business_concept, create_market_analysis, create_competition_analysis, create_product_design, create_marketing_plan]
+    - [create_business_concept, create_market_analysis, create_product_design, create_marketing_plan]
 
 create_financial_plan:
   description: >
-    Develop a detailed financial plan based, you can use the information generated by the previous agents.
-    Write about revenue projections, how the business will generate sales, profits and write about cost structure.
-    Write about funding requirements and its usage. Make a remark to the capital structure of the business.
-    Write the break-even analysis and profitability forecast, detailing when the business expects to become profitable.
-    Write about the involved risks in establishing the business, and how to mitigate them.
+    Create a detailed financial plan, you can use the information generated by the previous agents as context.
+    Consider the following information provided by the user:
+    {financial_funding}
+    {key_resources.tangible_resources}
+    {key_resources.intangible_resources}
+    {key_resources.material_resources}
+    {key_resources.intangible_resources_selected}
+    {cost_structure.cost_intensive_components}
+    {cost_structure.focus_areas}
+    {risk_factors}
+    {other_risk_factors}
+    {risk_plans}
+    {other_risk_plans}
+    {funding_strategy}
+    Consider all information passed to you by the user in the variables, do not miss anything and do not make stuff up.
+    Create a detailed financial plan based on this information from the user.
     Create it step by step, ensuring not to miss anything.
   expected_output: >
     A detailed markdown report, which consists of at least 500 words and consists of the following things in this order:
-    - Revenue projections, sales, profits, cost structure
-    - Funding requirements, capital structure
-    - Break-even analysis
-    - Financial risks, mitigation 
-    These are the headings that you need to follow, write about everything in your description to the belonging heading. Do not write about the same things that the previous agents has already generated, but use their text as information, when needed.
+    - The financial funding
+    - The key resources
+    - The cost structure and focus areas
+    - The risk factors and risk plans
+    - The funding strategy
+    These are the headings that you need to follow, write about everything in your description to the belonging heading. Do not write about the same things that the previous agents has already generated, but use their text as information, when needed or context.
   agent: financial_expert
   context:
-    - [create_business_concept, create_market_analysis, create_competition_analysis, create_product_design, create_marketing_plan, create_operating_plan]
-
-create_investor_assessment:
-  description: >
-    Critically evaluate the entire business plan from an investor's perspective. Provide key strengths and weaknesses.
-    Provide actionable feedback for improvement.
-  expected_output: >
-    A detailed markdown report, which consists of at least 250 words and provides the feedback to each section of the plan without repeating the sections themselves,
-    just mentioning their names and providing the feedback for improvement.
-  agent: stakeholder
-  context:
-    - [create_business_concept, create_market_analysis, create_competition_analysis, create_product_design, create_marketing_plan, create_operating_plan, create_financial_plan]
+    - [create_business_concept, create_market_analysis, create_product_design, create_marketing_plan, create_operating_plan]

@@ -28,9 +28,6 @@ class BusinessPlanFlow(Flow[BusinessPlanState]):
     def create_business_plan(self, state: BusinessPlanState):
         """Create the business plan using the crew with Gemini LLM"""
         print("Creating business plan...")
-
-        # Initialize Google Gemini
-        #model = genai.GenerativeModel('gemini-2.0-flash')
         
         # Initialize the LLM with Gemini
         llm = LLM(

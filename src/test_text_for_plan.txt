@@ -1,0 +1,9 @@
+The name of the company is Qolt. It is a food delivery company based in Aalborg, Denmark. We provide delivery of groceries and restaurant food.
+We operate in the services sector, more specifically the food industry and the delivery services. It is a combination of both. Target markets could include any age range between 16 and 70, who would like to order take away food and can afford it.
+In Denmark we face competition by two major companies, Wolt and JustEat. These are both bigger companies than us, with higher market share.
+We propose a fast and accurate food delivery service right to the customer's doorstep.
+We mostly advertise on social media platforms such as Instagram, Facebook and Youtube, but rarely we pay for adverts in the city centrum on billboards or posts.
+The initial investment amount for the establishment was 5 million Danish krona, and the marketing budget is around 2 million krona per year. We generate profits by providing a platform for the restaurants and stores to sell their products online and we take a cut from each sale and also charge the customer a small fee for delivery fee.
+
+First group of questions: answer with the help of LLM with tools, like web scraping or ask the user to upload relevant document of the company
+Second group of questions: get info from the users on streamlit as text or documents

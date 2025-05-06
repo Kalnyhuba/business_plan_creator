@@ -91,6 +91,17 @@ stakeholder:
     You are a stakeholder in a large corporation with a deep understanding of the business world 
     and high quality management skills. You are great in spotting valuable upcoming startups.
 
+    stakeholder:
+  role: >
+    Stakeholder who is interested in investing in the business and providing feedback on the plan, based on their own experience and knowledge
+  goal: >
+    To analyze the business plan critically and provide feedback on the viability in the real world.
+  backstory: >
+    You are a stakeholder in a large corporation with a deep understanding of the business world and high quality management skills.
+    You are great in spotting valuable upcoming startups.
+    
+
+
 TASKS:
 
 create_business_concept:
@@ -111,3 +122,347 @@ create_business_concept:
     It should cover the products and services offered.
     Write maximum 1000 characters.
   agent: business_designer
+
+  create_investor_assessment:
+  description: >
+    Critically evaluate the entire business plan from an investor's perspective. Provide key strengths and weaknesses.
+    Provide actionable feedback for improvement.
+  expected_output: >
+    A detailed markdown report, which consists of at least 250 words and provides the feedback to each section of the plan without repeating the sections themselves,
+    just mentioning their names and providing the feedback for improvement.
+  agent: stakeholder
+  context:
+    - [create_business_concept, create_market_analysis, create_competition_analysis, create_product_design, create_marketing_plan, create_operating_plan, create_financial_plan]
+
+
+# Define segment analysis questions
+segment_analysis_questions = [
+    {
+        "id": "customer_count",
+        "question": "Please provide the number of potential customers in the customer group who are realistically interested in purchasing the company's product/service.",
+        "type": "textarea"
+    },
+    {
+        "id": "problems_faced",
+        "question": "Please briefly describe the problems or challenges that your company is trying to solve for the customer group:",
+        "type": "textarea"
+    },
+    {
+        "id": "biggest_competitors",
+        "question": "Please indicate and name the three biggest competitors in relation to your company's sales to this customer group:",
+        "type": "textarea"
+    },
+    {
+        "id": "competition_intensity",
+        "question": "Please indicate the intensity of the competition in the market:",
+        "type": "radio",
+        "options": [
+            "Low",
+            "Normal",
+            "High"
+        ]
+    },
+    {
+        "id": "price_comparison",
+        "question": "How are the prices of your company's products/services compared to that of the competitors?",
+        "type": "radio",
+        "options": [
+            "Significantly lower",
+            "Similar",
+            "Significantly higher"
+        ]
+    },
+    {
+        "id": "market_type",
+        "question": "Is the market best described as a niche market or a mass market?",
+        "type": "radio",
+        "options": [
+            "Niche market",
+            "Mass market"
+        ]
+    },
+    {
+        "id": "competitive_parameters",
+        "question": "Now we compare your company with the competitors. Which competitve parameters does your company excel at towards the customer group? Select all that apply.",
+        "type": "multiselect",
+        "options": [
+            "Best visual/aestethic design",
+            "Convenience for customer",
+            "Customized solutions",
+            "Fast execution (from order to delivery)",
+            "Fun/entertainment",
+            "High brand value",
+            "Long product/service life",
+            "Free basic product/service",
+            "Low price",
+            "New/innovative",
+            "Provides a wide range of products/services",
+            "Quick introductions of new products/services",
+            "Unique/limited available products and services",
+            "Reduce customer's costs",
+            "Reduce customer's risks",
+            "Reliability and trust",
+            "Product availability (the product/service is easy to acquire regardless of geographical location)",
+            "Ease of use (the product/service is easy to use regardless of the company's help)",
+            "Great sensory experience",
+            "Knowledge/know-how",
+            "Sustainable product(s)"
+        ]
+    },
+    {
+        "id": "value_propositions",
+        "question": "Please select the most important value propositions towards the private end-consumers (Maximum of 5)",
+        "type": "multiselect",
+        "options": [
+            "Social self-aggrandizement",
+            "Brings hope",
+            "Self-realization",
+            "Motivation",
+            "Inheritable",
+            "Affiliation",
+            "Reliability and trust",
+            "Rewarding",
+            "Nostalgia",
+            "Attractive design",
+            "Brand value",
+            "Wellbeing",
+            "Therapeutic value",
+            "Entertainment",
+            "Attractiveness",
+            "Accessing",
+            "Time saving",
+            "Informs",
+            "Appeals to the senses",
+            "Wide selection",
+            "Quality",
+            "Avoids difficulties/hassles",
+            "Connects",
+            "Integrates",
+            "Organizes",
+            "Simplifies",
+            "Risk reduction",
+            "Membership benefits (e.g. discounts)",
+            "Reduces costs/returns for the customer",
+            "Reduces effort"
+        ]
+    },
+    {
+        "id": "direct_income",
+        "question": "Does your company receive income directly from this customer group?",
+        "type": "radio",
+        "options": [
+            "Yes",
+            "No"
+        ]
+    },
+    {
+        "id": "primary_revenue",
+        "question": "How can your company's primary revenue from this customer group be characterized? Select all that apply.",
+        "type": "multiselect",
+        "options": [
+            "One-time payments",
+            "Partial payments (payment is split into several smaller parts, e.g. installments)",
+            "Ongoing payments (e.g. subscriptions, licenses etc.)",
+            "Barter (no money involved)",
+            "Prepayments"
+        ]
+    },
+    {
+        "id": "one_time_payments",
+        "question": "Please specify which of the following one-time payments the revenue from this customer group primarily consists of: (Select 1 or more)",
+        "type": "multiselect",
+        "options": [
+            "Cash payment (e.g., cash or invoice for ownership/consumption of product or service)",
+            "Consumption settlement",
+            "Leasing",
+            "Licenses/royalties",
+            "Variable transaction fees (a percentage of the value of the transaction)",
+            "Fixed transaction fees (fixed price)",
+            "Voluntary contributions/sponsorships",
+            "Sale of advertising space"
+        ]
+    },
+    {
+        "id": "ongoing_payments",
+        "question": "Please specify which of the following ongoing payments the revenue from this customer group primarily consists of: (Select 1 or more)",
+        "type": "multiselect",
+        "options": [
+            "Subscriptions",
+            "Consumption settlement",
+            "Leasing",
+            "Licenses/royalties",
+            "Variable transaction fees (a percentage of the value of the transaction)",
+            "Fixed transaction fees (fixed price)",
+            "Voluntary contributions/sponsorships",
+            "Sale of advertising space"
+        ]
+    },
+    {
+        "id": "payment_characteristics",
+        "question": "Select if any of the following statements characterize the primary income from this customer group:",
+        "type": "multiselect",
+        "options": [
+            "Additional sales/sales of complementary products or services, with a high degree of coverage on the basis of the sale of a free or cheap product or service",
+            "Sales of main product with high coverage to which complementary products are sold with a lower coverage",
+            "Sales of continuous upgrades to the main product",
+            "The company requires prepayments and achieves high profits due to low inventory cost",
+            "The company collects products in package solution",
+            "The customers are offed to purchase products together and share the ownership"
+        ]
+    },
+    {
+        "id": "package_price",
+        "question": "What is the price on the package soultion compared to buying the individual products/services seperately?",
+        "type": "radio",
+        "options": [
+            "Lower price",
+            "Same price",
+            "Higher price"
+        ]
+    },
+    {
+        "id": "price_negotiation",
+        "question": "To what extent are the prices for the customers negotiable?",
+        "type": "radio",
+        "options": [
+            "Fixed prices",
+            "Dynamic/negotiable prices"
+        ]
+    },
+    {
+        "id": "fixed_prices",
+        "question": "Please specify what determines the fixed prices for the customers: (Select one or more)",
+        "type": "multiselect",
+        "options": [
+            "The unit price is determined by the quantity purchased",
+            "The unit price depends on the type and characteristics of the specific customer group",
+            "The unit price is independent of quantity and the type and characteristics of the specific customer group",
+            "The unit price is determined by varying use of the product",
+            "The customer determines the price"
+        ]
+    },
+    {
+        "id": "dynamic_prices",
+        "question": "Please specify what determines the dynamic prices for the customers: (Select one or more)",
+        "type": "multiselect",
+        "options": [
+            "The unit price is determined by the outcome of negotiation",
+            "The unit price is determined by the outcome of bidding war",
+            "The unit price is determined by varying use of the product",
+            "The customer determines the price"
+        ]
+    },
+    {
+        "id": "distribution_channels",
+        "question": "Which type of channels does the company use towards this customer group? (Select one or more)",
+        "type": "multiselect",
+        "options": [
+            "Own physical location (e.g., shop or meeting room)",
+            "Own webshop",
+            "Own website",
+            "Own outreach (e.g., own sales people or marketing channels)",
+            "Retailers",
+            "Wholesalers",
+            "Independent private sales consultants",
+            "Referrals from other companies",
+            "Personal recommendation (word of mouth)"
+        ]
+    },
+    {
+        "id": "purchasing_power",
+        "question": "Please indicate this customer group's purchasing power:",
+        "type": "radio",
+        "options": [
+            "Low purchasing power",
+            "High purchasing power"
+        ]
+    },
+    {
+        "id": "product_related_characteristics",
+        "question": "Please indicate if any of the following characteristics describes your company's products/services to this customer group compared with the competitors: (Select one or more)",
+        "type": "multiselect",
+        "options": [
+            "A low number of different items (Limited selection)",
+            "A high number of different items (Extensive selection)",
+            "Large quantities of few items are sold",
+            "Small quantities of many items are sold",
+            "Low degree of coverage",
+            "High degree of coverage"
+        ]
+    },
+    {
+        "id": "self_service_availability",
+        "question": "How often is this customer group offered self-service and automated processes (e.g., webshop or online banking)?",
+        "type": "radio",
+        "options": [
+            "Never",
+            "In some cases",
+            "Always available"
+        ]
+    },
+    {
+        "id": "online_communities_presence",
+        "question": "To what extent are online communites used to exchange information and solve the challenges of this customer group?",
+        "type": "radio",
+        "options": [
+            "Never",
+            "In some cases",
+            "Always"
+        ]
+    },
+    {
+        "id": "development_process_customer_involvement",
+        "question": "To what extent is this customer group involved in the design or development process of products and services?",
+        "type": "radio",
+        "options": [
+            "Never",
+            "In some cases",
+            "Always"
+        ]
+    },
+    {
+        "id": "after_sale_purchases",
+        "question": "How often does this customer group pay for after-sales services? (e.g., follow-up sale of service(s) or additional product(s). This does not mean resale)",
+        "type": "radio",
+        "options": [
+            "Never",
+            "In some cases",
+            "Always"
+        ]
+    },
+    {
+        "id": "personal_assistance_offered",
+        "question": "What degree of personal assistance is offered?",
+        "type": "radio",
+        "options": [
+            "None",
+            "Somewhat (for example customer service department)",
+            "High level of assistance (for example dedicated personal assistance manager)"
+        ]
+    },
+    {
+        "id": "similar_products_switch",
+        "question": "How easy is it for customers to switch to other providers of similar products/services?",
+        "type": "radio",
+        "options": [
+            "Impossible",
+            "Only possible with significant effort or research",
+            "Possible, but takes effort",
+            "Easy, with a bit of effort",
+            "Extremely easy"
+        ]
+    },
+    {
+        "id": "general_customer_relation",
+        "question": "How is the relation with this customer group in general?",
+        "type": "radio",
+        "options": [
+            "One-time purchase",
+            "Occasional buyer",
+            "Regular customer",
+            "Frequent buyer",
+            "Long-term relation"
+        ]
+    }
+]
+
