@@ -1,0 +1,21 @@
+review_business_plan:
+  description: |
+    Review the generated business plan according to the following points, and provide feedback to improvement if necessary:
+    - Check if the business concept is clearly stated, feasible, and logically aligns with the rest of the plan.
+    - Evaluate if the market and competition sections provide enough real-world insight, including trends, gaps, and competitive positioning.
+    - Verify that the marketing strategy includes customer segmentation, positioning, advertisement aspect and distribution channels relevant to the product.
+    - Assess whether the financial section includes revenue model, cost structure, and potential profitability or break-even analysis.
+    Additionally, if you believe there are any issues with the business plan or ways it could be improved, such as the structure of the plan, then provide feedback.
+    If any of the criteria are not met, the post is considered invalid.
+    Provide actionable changes about what is wrong and what actions need to be taken to fix the business plan.
+    Your final response must be in the following format:
+    {
+        "valid": true/false,
+        "feedback": "Your feedback here if invalid"
+    }
+  expected_output: |
+    {
+        "valid": true/false,
+        "feedback": "Your feedback here if invalid"
+    }
+  agent: business_plan_reviewer

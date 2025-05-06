@@ -1,0 +1,11 @@
+scrape_website:
+  description: >
+    Conduct a thorough website search based on the given {website_url} and uncover the following information about the company:
+    - The name of the company
+    - In what year was it established
+    - The mission or vision or long-term goal of the company
+    - The product or service they offer
+    - A short summary of the business (business description)
+  expected_output: >
+    An LLM-friendly raw text about the information that has been scraped from the website.
+  agent: scraper
